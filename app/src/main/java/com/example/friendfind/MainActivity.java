@@ -15,6 +15,9 @@ import android.view.MenuItem;
 import com.example.friendfind.fragments.main.MainFragment;
 import com.example.friendfind.fragments.show.ShowFragment;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     DrawerLayout drawerLayout;
@@ -26,6 +29,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        FirebaseApp.initializeApp(this);
         setContentView(R.layout.activity_main);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -42,6 +47,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.container_fragment,new MainFragment());
         fragmentTransaction.commit();
+
+        FirebaseDatabase.getInstance();
+
 
     }
 

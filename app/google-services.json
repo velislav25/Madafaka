@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1055636214592",
+    "firebase_url": "https://findfriendsun.firebaseio.com",
+    "project_id": "findfriendsun",
+    "storage_bucket": "findfriendsun.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1055636214592:android:f61fb253055e389ba0e0a5",
+        "android_client_info": {
+          "package_name": "com.example.friendfind"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1055636214592-lp2nl46pklkoalqv31020ojf17pkilbi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.friendfind",
+            "certificate_hash": "3d9e07409034373cd7515aed92ae0c2572ec21ba"
+          }
+        },
+        {
+          "client_id": "1055636214592-0bhha2m6aqpct7c452almc0aoccucq5q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBOAtHgguO4i8-2Tqx2OFzapfMOh7SrRIM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1055636214592-0bhha2m6aqpct7c452almc0aoccucq5q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

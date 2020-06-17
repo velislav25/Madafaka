@@ -9,9 +9,11 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.example.friendfind.fragments.invite.InviteFragment;
 import com.example.friendfind.fragments.main.MainFragment;
 import com.example.friendfind.fragments.show.ShowFragment;
 import com.google.android.material.navigation.NavigationView;
@@ -69,11 +71,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             fragmentTransaction.commit();
         }
 
-        if(menuItem.getItemId() == R.id.xx){
+        if(menuItem.getItemId() == R.id.invite){
             FragmentManager supportFragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.container_fragment,new ShowFragment());
+            fragmentTransaction.replace(R.id.container_fragment,new InviteFragment());
             fragmentTransaction.commit();
+        }
+
+        if(menuItem.getItemId() == R.id.logout){
+            //logout user
+
+            //destroy main and luchn login
+            Intent myIntent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(myIntent);
+            finish();
         }
 
         return true;

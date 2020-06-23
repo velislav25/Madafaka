@@ -16,10 +16,13 @@ import android.view.MenuItem;
 import com.example.friendfind.fragments.invite.InviteFragment;
 import com.example.friendfind.fragments.main.MainFragment;
 import com.example.friendfind.fragments.show.ShowFragment;
+import com.google.android.gms.maps.MapFragment;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     DrawerLayout drawerLayout;
@@ -64,24 +67,31 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         drawerLayout.closeDrawer(GravityCompat.START);
 
-        if(menuItem.getItemId() == R.id.home){
+        if (menuItem.getItemId() == R.id.home) {
             FragmentManager supportFragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.container_fragment,new MainFragment());
+            fragmentTransaction.replace(R.id.container_fragment, new MainFragment());
             fragmentTransaction.commit();
         }
 
-        if(menuItem.getItemId() == R.id.invite){
+        if (menuItem.getItemId() == R.id.invite) {
             FragmentManager supportFragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.container_fragment,new InviteFragment());
+            fragmentTransaction.replace(R.id.container_fragment, new InviteFragment());
             fragmentTransaction.commit();
+        }
+
+        if (menuItem.getItemId() == R.id.map) {
+
+            Intent myIntent = new Intent(MainActivity.this, FriendsMapActivity.class);
+            startActivity(myIntent);
+            finish();
         }
 
         if(menuItem.getItemId() == R.id.logout){
             //logout user
 
-            //destroy main and luchn login
+            //destroy main and launch login
             Intent myIntent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(myIntent);
             finish();

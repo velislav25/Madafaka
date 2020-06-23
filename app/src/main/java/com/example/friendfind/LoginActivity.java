@@ -36,6 +36,7 @@ public class LoginActivity extends AppCompatActivity {
         usernameTextView = (TextView) findViewById(R.id.editTextTextUsername);
         passTextView = (TextView) findViewById(R.id.editTextPassword);
         Button loginBtn = (Button) findViewById(R.id.buttonLogin);
+        Button regBtn = (Button) findViewById(R.id.buttonRegister);
 
         //Init firebase
         FirebaseApp.initializeApp(this);
@@ -55,6 +56,29 @@ public class LoginActivity extends AppCompatActivity {
                 String userEmail = usernameTextView.getText().toString();
                 String userPass = passTextView.getText().toString();
                 loginUser(userEmail, userPass);
+            }
+
+
+        });
+
+        //button listener
+        regBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String userEmail = usernameTextView.getText().toString();
+                String userPass = passTextView.getText().toString();
+                instanceAuth.createUserWithEmailAndPassword(userEmail, userPass).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (!task.isSuccessful()){
+                            Toast.makeText(LoginActivity.this,"Sign Up Error", Toast.LENGTH_SHORT).show();
+                        }else{
+                            String user_id = instanceAuth.getCurrentUser().getUid();
+                            DatabaseReference current_user_db = FirebaseDatabase.getInstance().getReference().child("users").child(user_id);
+                            current_user_db.setValue(true);
+                        }
+                    }
+                });
             }
 
 

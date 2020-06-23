@@ -3,4 +3,5 @@
     <string name="open">open</string>
     <string name="close">close</string>
     <string name="login">Login</string>
+    <string name="title_activity_friends_map">Map</string>
 </resources>

@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if(menuItem.getItemId() == R.id.logout){
             //logout user
-
+            FirebaseAuth.getInstance().signOut();
             //destroy main and launch login
             Intent myIntent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(myIntent);

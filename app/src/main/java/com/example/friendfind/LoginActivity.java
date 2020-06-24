@@ -22,6 +22,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 
 import java.io.Console;
+import java.util.HashMap;
+import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -55,7 +57,13 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String userEmail = usernameTextView.getText().toString();
                 String userPass = passTextView.getText().toString();
-                loginUser(userEmail, userPass);
+                //validate inputs
+                if(userEmail!=null && !userEmail.isEmpty() && userPass!=null && !userPass.isEmpty()){
+                    loginUser(userEmail, userPass);
+                }else {
+                    Toast.makeText(getApplicationContext(),"Email or password empty~!",Toast.LENGTH_SHORT).show();
+                }
+
             }
 
 
@@ -70,12 +78,21 @@ public class LoginActivity extends AppCompatActivity {
                 instanceAuth.createUserWithEmailAndPassword(userEmail, userPass).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (!task.isSuccessful()){
-                            Toast.makeText(LoginActivity.this,"Sign Up Error", Toast.LENGTH_SHORT).show();
+                        if (task.isSuccessful()){
+                            String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("users").child(uid);
+
+                            Map userObj = new HashMap<>();
+                            String email = usernameTextView.getText().toString();
+                            userObj.put("email", email);
+                            String user = email.substring(0, email.lastIndexOf("@"));
+                            userObj.put("name", user);
+
+                            databaseReference.updateChildren(userObj);
+
+                            Toast.makeText(LoginActivity.this,"Sign Up Successful. Please login", Toast.LENGTH_SHORT).show();
                         }else{
-                            String user_id = instanceAuth.getCurrentUser().getUid();
-                            DatabaseReference current_user_db = FirebaseDatabase.getInstance().getReference().child("users").child(user_id);
-                            current_user_db.setValue(true);
+                            Toast.makeText(LoginActivity.this,"Sign Error:" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -102,15 +119,10 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void runApp() {
-        saveUserActivity();
         Intent myIntent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(myIntent);
         finish();
     }
 
-    private void saveUserActivity() {
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users");
-        DatabaseReference userReference = databaseReference.child(instanceAuth.getUid());
-        userReference.setValue(instanceAuth.getCurrentUser().getEmail());
-    }
+
 }

@@ -86,12 +86,7 @@ public class FriendsMapActivity extends FragmentActivity implements OnMapReadyCa
 
     }
 
-    @Override
-    public void onLocationChanged(Location location) {
-        if(getApplicationContext() !=null) {
-            if(!FriendID)
-        }
-    }
+
 
 
 

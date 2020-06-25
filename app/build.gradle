@@ -40,6 +40,8 @@ dependencies {
     implementation 'com.google.android.gms:play-services-location:17.0.0'
 
     implementation "androidx.recyclerview:recyclerview:1.1.0"
+    implementation 'com.firebase:geofire-java:3.0.0'
+
 
 
 }

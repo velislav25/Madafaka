@@ -16,7 +16,6 @@ import com.example.friendfind.R;
 
 public class ShowFragment extends Fragment {
 
-    private ShowViewModel mViewModel;
 
     public static ShowFragment newInstance() {
         return new ShowFragment();
@@ -31,8 +30,7 @@ public class ShowFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(ShowViewModel.class);
-        // TODO: Use the ViewModel
+
     }
 
 }

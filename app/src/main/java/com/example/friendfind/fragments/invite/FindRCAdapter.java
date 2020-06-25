@@ -10,7 +10,10 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.friendfind.R;
+import com.example.friendfind.domain.Follows;
 import com.example.friendfind.domain.User;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 
@@ -32,8 +35,31 @@ public class FindRCAdapter extends RecyclerView.Adapter<FindRCHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FindRCHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final FindRCHolder holder, final int position) {
         holder.mEmail.setText(userList.get(position).getEmail());
+
+        if(Follows.list.contains(userList.get(holder.getLayoutPosition()).getUid())){
+            holder.mFollow.setText("Followed");
+        }else {
+            holder.mFollow.setText("Follow");
+        }
+
+        holder.mFollow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //sub
+
+                String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                if(holder.mFollow.getText().equals("Follow")){
+                    holder.mFollow.setText("Followed");
+                    FirebaseDatabase.getInstance().getReference().child("users").child(uid).child("follower").child(userList.get(holder.getLayoutPosition()).getUid()).setValue(true);
+                }else {
+                    holder.mFollow.setText("Follow");
+                    FirebaseDatabase.getInstance().getReference().child("users").child(uid).child("follower").child(userList.get(holder.getLayoutPosition()).getUid()).removeValue();
+                }
+
+            }
+        });
     }
 
     @Override

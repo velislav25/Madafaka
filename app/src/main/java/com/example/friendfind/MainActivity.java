@@ -198,9 +198,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if (menuItem.getItemId() == R.id.map) {
 
-            Intent myIntent = new Intent(MainActivity.this, FriendsMapActivity.class);
-            startActivity(myIntent);
-            finish();
+            FragmentManager supportFragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.container_fragment, new ShowFragment());
+            fragmentTransaction.commit();
         }
 
         if(menuItem.getItemId() == R.id.logout){

@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         //GeoFire
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("users").child(uid).child("location");
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("users").child(uid);
         geoFire = new GeoFire(ref);
 
         //Create Navigation drawer
@@ -154,7 +154,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         if(location==null)
                             return;
                         Log.d("TTT", String.valueOf(location.getLatitude() +" " + String.valueOf(location.getLongitude())));
-                        geoFire.setLocation("test", new GeoLocation(location.getLatitude(), location.getLongitude()), new GeoFire.CompletionListener() {
+                        geoFire.setLocation("location", new GeoLocation(location.getLatitude(), location.getLongitude()), new GeoFire.CompletionListener() {
                             @Override
                             public void onComplete(String key, DatabaseError error) {
                                 if (error!=null)

@@ -151,6 +151,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 fusedLocationProviderClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
                     @Override
                     public void onSuccess(Location location) {
+                        if(location==null)
+                            return;
                         Log.d("TTT", String.valueOf(location.getLatitude() +" " + String.valueOf(location.getLongitude())));
                         geoFire.setLocation("test", new GeoLocation(location.getLatitude(), location.getLongitude()), new GeoFire.CompletionListener() {
                             @Override

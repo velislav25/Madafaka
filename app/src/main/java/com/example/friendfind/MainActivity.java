@@ -24,6 +24,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.friendfind.fragments.friends.FriendFragment;
 import com.example.friendfind.fragments.invite.InviteFragment;
 import com.example.friendfind.fragments.main.MainFragment;
 import com.example.friendfind.fragments.show.ShowFragment;
@@ -201,6 +202,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             FragmentManager supportFragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.container_fragment, new ShowFragment());
+            fragmentTransaction.commit();
+        }
+
+        if (menuItem.getItemId() == R.id.friends) {
+
+            FragmentManager supportFragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.container_fragment, new FriendFragment());
             fragmentTransaction.commit();
         }
 

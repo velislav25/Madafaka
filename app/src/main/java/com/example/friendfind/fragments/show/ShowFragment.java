@@ -68,18 +68,18 @@ public class ShowFragment extends Fragment implements OnMapReadyCallback {
     public void onMapReady(GoogleMap googleMap) {
         Log.d("xxx", "MapReady");
         map = googleMap;
-        LatLng latLng = new LatLng(-34, 151);
-       // map.addMarker(new MarkerOptions().position(latLng).title("marker"));
-        //map.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+
+
         showFollowers();
     }
 
     public void showFollowers(){
-        Follows follows = new Follows();
-        follows.getFollowedUsers();
+        Follows.getInstance();
+
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         FirebaseDatabase.getInstance().getReference().child("users");
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("users").child(uid).child("follower");
+
         reference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull final DataSnapshot dataSnapshot, @Nullable String s) {
@@ -104,7 +104,7 @@ public class ShowFragment extends Fragment implements OnMapReadyCallback {
                                             String em = dataSnapshot.getValue().toString();
                                             map.addMarker(new MarkerOptions().position(latLng).title(em));
                                         }else {
-                                            map.addMarker(new MarkerOptions().position(latLng).title("email"));
+                                            map.addMarker(new MarkerOptions().position(latLng).title("No email"));
 
                                         }
                                         map.moveCamera(CameraUpdateFactory.newLatLng(latLng));
@@ -113,7 +113,7 @@ public class ShowFragment extends Fragment implements OnMapReadyCallback {
 
                                     @Override
                                     public void onCancelled(@NonNull DatabaseError databaseError) {
-                                        map.addMarker(new MarkerOptions().position(latLng).title("email"));
+                                        map.addMarker(new MarkerOptions().position(latLng).title("No email"));
                                         map.moveCamera(CameraUpdateFactory.newLatLng(latLng));
                                     }
                                 });

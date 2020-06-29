@@ -14,8 +14,20 @@ import java.util.ArrayList;
 
 public class Follows {
     public static ArrayList<String> list = new ArrayList<>();
+    private static Follows instance;
 
-    public void getFollowedUsers(){
+
+    private Follows() {    }
+
+    public static Follows getInstance() {
+        if (instance == null) {
+            instance = new Follows();
+            instance.getFollowedUsers();
+        }
+        return(instance);
+    }
+
+    private void getFollowedUsers(){
         list.clear();
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("users").child(uid).child("follower");
@@ -32,17 +44,23 @@ public class Follows {
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
+                if(dataSnapshot.exists()){
+                    list = new ArrayList<>();
+                    String key = dataSnapshot.getRef().getKey();
+                    if(key!=null && !list.contains(key)){
+                        list.add(key);
+                    }
+                }
             }
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
+
                     String key = dataSnapshot.getRef().getKey();
                     if(key!=null){
                         list.remove(key);
                     }
-                }
+
             }
 
             @Override

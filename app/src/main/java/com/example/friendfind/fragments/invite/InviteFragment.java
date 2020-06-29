@@ -68,8 +68,7 @@ public class InviteFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        Follows follows = new Follows();
-        follows.getFollowedUsers();
+        Follows.getInstance();
 
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
